@@ -70,11 +70,20 @@
           <span class="lg"><span class="badge-dot core">✓</span>Key finding</span>
           <span class="lg"><span class="badge-dot alt">✓</span>Supporting detail</span>
           <span class="lg"><span class="badge-dot info">!</span>Heads-up</span>
-          <span class="legend-note">Evidence chips open the source file</span>
+          <span class="legend-note">Blue nodes open links · drag canvas to pan · scroll to zoom · drag boxes to rearrange</span>
         </div>
         <div id="board" class="board">
-          <svg id="links" aria-hidden="true"></svg>
-          <div id="cats"></div>
+          <div id="viewport" class="viewport">
+            <div id="world" class="world">
+              <svg id="links" aria-hidden="true"></svg>
+              <div id="nodes"></div>
+            </div>
+          </div>
+          <div class="canvas-controls">
+            <button id="zin" type="button" aria-label="Zoom in">+</button>
+            <button id="zout" type="button" aria-label="Zoom out">−</button>
+            <button id="zreset" type="button">Reset</button>
+          </div>
         </div>
       </div>
 
