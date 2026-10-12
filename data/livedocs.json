@@ -4,7 +4,7 @@
     "repo": "livedocsxyz",
     "url": "https://github.com/berlified/livedocsxyz",
     "branch": "main",
-    "analyzedAt": "2026-10-12T15:54:04.247Z",
+    "analyzedAt": "2026-10-12T16:00:34.769Z",
     "totalFiles": 257
   },
   "summary": {
@@ -57,6 +57,43 @@
       }
     ]
   },
+  "languages": [
+    {
+      "name": "TypeScript",
+      "files": 123,
+      "pct": 50
+    },
+    {
+      "name": "JSON",
+      "files": 97,
+      "pct": 39
+    },
+    {
+      "name": "Markdown",
+      "files": 8,
+      "pct": 3
+    },
+    {
+      "name": "YAML",
+      "files": 8,
+      "pct": 3
+    },
+    {
+      "name": "CSS",
+      "files": 5,
+      "pct": 2
+    },
+    {
+      "name": "SVG",
+      "files": 3,
+      "pct": 1
+    },
+    {
+      "name": "JavaScript",
+      "files": 2,
+      "pct": 1
+    }
+  ],
   "tree": [
     {
       "label": "Runtime & Language",

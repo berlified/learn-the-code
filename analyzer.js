@@ -538,6 +538,7 @@ export function analyzeRepoDir(dir, { owner, repo, url, branch = "HEAD" } = {}) 
   return {
     meta: { owner, repo, url, branch, analyzedAt: new Date().toISOString(), totalFiles: files.length },
     summary,
+    languages: languages.slice(0, 8),
     tree,
     interview,
   };

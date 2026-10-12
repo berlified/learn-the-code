@@ -27,13 +27,19 @@
                placeholder="https://github.com/owner/repo" aria-label="GitHub repo URL" />
         <button type="submit">Analyze</button>
       </form>
-      <div class="row">
-        <button id="example" type="button" class="ghost">Try livedocsxyz</button>
-        <span id="error" class="error" role="alert" hidden></span>
+      <div class="chips">
+        <span>Try:</span>
+        <button class="chip" type="button" data-instant="1">berlified/livedocsxyz</button>
+        <button class="chip" type="button" data-repo="https://github.com/expressjs/express">expressjs/express</button>
+        <button class="chip" type="button" data-repo="https://github.com/pallets/flask">pallets/flask</button>
       </div>
+      <p id="error" class="error" role="alert" hidden></p>
       <div id="loading" class="loading" hidden>
-        <span class="spinner" aria-hidden="true"></span>
-        <span id="step">Cloning repo…</span>
+        <div class="load-line">
+          <span class="spinner" aria-hidden="true"></span>
+          <span id="step">Cloning repo…</span>
+        </div>
+        <div class="shimmer" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
     </section>
 
@@ -43,6 +49,10 @@
         <h2 id="r-name"></h2>
         <p class="oneliner" id="r-one"></p>
         <div class="badges" id="r-badges"></div>
+        <div class="langs" id="r-langs" hidden>
+          <div class="lang-bar" id="r-langbar"></div>
+          <div class="lang-legend" id="r-langlegend"></div>
+        </div>
         <div class="stats" id="r-stats"></div>
       </article>
 
@@ -50,8 +60,9 @@
         <h3>Architecture map</h3>
         <div class="tools">
           <input id="filter" type="search" placeholder="Filter…" aria-label="Filter map" />
-          <button id="expand" type="button" class="ghost">Expand all</button>
-          <button id="collapse" type="button" class="ghost">Collapse all</button>
+          <button id="copy" type="button" class="ghost">Copy markdown</button>
+          <button id="expand" type="button" class="ghost">Expand</button>
+          <button id="collapse" type="button" class="ghost">Collapse</button>
         </div>
       </div>
       <div id="tree" class="tree"></div>
@@ -61,12 +72,14 @@
       <div id="interview" class="qa"></div>
 
       <h3 class="sect">Run it yourself</h3>
+      <p class="sect-sub">Entry points and commands, read straight from the manifests.</p>
       <div id="scripts" class="scripts"></div>
     </section>
   </main>
 
   <footer class="wrap foot">
     <p>Static analysis of public repos — manifests, lockfiles, configs and file tree. No code is executed.</p>
+    <p><a href="https://github.com/berlified/learn-the-code">Source</a></p>
   </footer>
 
   <script src="/app.js" type="module"></script>
