@@ -1,0 +1,13 @@
+{
+  "name": "learn-the-code",
+  "version": "0.1.0",
+  "description": "Paste a repo link, learn the architecture. Framework, language, libraries and structure as a hierarchy map.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

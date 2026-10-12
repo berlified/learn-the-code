@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>learn-the-code — paste a repo, learn the architecture</title>
+  <meta name="description" content="Paste a GitHub repo link and get its architecture: framework, language, libraries and structure as a hierarchy map." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="/">
+        <span class="mark" aria-hidden="true"></span>
+        <span>learn-the-code</span>
+      </a>
+      <p class="tagline">Paste a repo. Learn how it was built.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>What is this repo, really?</h1>
+      <p class="sub">Framework, language, libraries, structure — mapped like a hierarchy, plus the answers a technical interviewer would demand.</p>
+      <form id="form" class="form" autocomplete="off">
+        <input id="input" name="repo" type="text" spellcheck="false"
+               placeholder="https://github.com/owner/repo" aria-label="GitHub repo URL" />
+        <button type="submit">Analyze</button>
+      </form>
+      <div class="row">
+        <button id="example" type="button" class="ghost">Try livedocsxyz</button>
+        <span id="error" class="error" role="alert" hidden></span>
+      </div>
+      <div id="loading" class="loading" hidden>
+        <span class="spinner" aria-hidden="true"></span>
+        <span id="step">Cloning repo…</span>
+      </div>
+    </section>
+
+    <section id="results" hidden>
+      <article class="card summary">
+        <p class="eyebrow" id="r-type"></p>
+        <h2 id="r-name"></h2>
+        <p class="oneliner" id="r-one"></p>
+        <div class="badges" id="r-badges"></div>
+        <div class="stats" id="r-stats"></div>
+      </article>
+
+      <div class="toolbar">
+        <h3>Architecture map</h3>
+        <div class="tools">
+          <input id="filter" type="search" placeholder="Filter…" aria-label="Filter map" />
+          <button id="expand" type="button" class="ghost">Expand all</button>
+          <button id="collapse" type="button" class="ghost">Collapse all</button>
+        </div>
+      </div>
+      <div id="tree" class="tree"></div>
+
+      <h3 class="sect">Grill the builder</h3>
+      <p class="sect-sub">Everything a technical person would ask about whoever made this.</p>
+      <div id="interview" class="qa"></div>
+
+      <h3 class="sect">Run it yourself</h3>
+      <div id="scripts" class="scripts"></div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Static analysis of public repos — manifests, lockfiles, configs and file tree. No code is executed.</p>
+  </footer>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

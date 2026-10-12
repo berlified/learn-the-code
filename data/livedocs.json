@@ -1,0 +1,424 @@
+{
+  "meta": {
+    "owner": "berlified",
+    "repo": "livedocsxyz",
+    "url": "https://github.com/berlified/livedocsxyz",
+    "branch": "main",
+    "analyzedAt": "2026-10-12T15:54:04.247Z",
+    "totalFiles": 257
+  },
+  "summary": {
+    "name": "berlified/livedocsxyz",
+    "url": "https://github.com/berlified/livedocsxyz",
+    "oneLiner": "shadcn component registry for livedocs.xyz",
+    "type": "shadcn Component Registry",
+    "badges": [
+      {
+        "k": "Language",
+        "v": "TypeScript"
+      },
+      {
+        "k": "Framework",
+        "v": "Next.js 15.3.3"
+      },
+      {
+        "k": "Type",
+        "v": "shadcn Component Registry"
+      },
+      {
+        "k": "Package manager",
+        "v": "pnpm"
+      },
+      {
+        "k": "Styling",
+        "v": "Tailwind v4.1.8 + shadcn"
+      },
+      {
+        "k": "Visualization",
+        "v": "Recharts"
+      }
+    ],
+    "stats": [
+      {
+        "k": "Files",
+        "v": "257"
+      },
+      {
+        "k": "Languages",
+        "v": "7"
+      },
+      {
+        "k": "Dependencies",
+        "v": "23"
+      },
+      {
+        "k": "Workspaces",
+        "v": "6"
+      }
+    ]
+  },
+  "tree": [
+    {
+      "label": "Runtime & Language",
+      "children": [
+        {
+          "t": "Node.js >=20",
+          "d": "required engine",
+          "e": "package.json → engines"
+        },
+        {
+          "t": "TypeScript",
+          "d": "123 files · 50%",
+          "e": "counted from tracked files"
+        },
+        {
+          "t": "JSON",
+          "d": "97 files · 39%",
+          "e": "counted from tracked files"
+        },
+        {
+          "t": "Markdown",
+          "d": "8 files · 3%",
+          "e": "counted from tracked files"
+        },
+        {
+          "t": "YAML",
+          "d": "8 files · 3%",
+          "e": "counted from tracked files"
+        },
+        {
+          "t": "CSS",
+          "d": "5 files · 2%",
+          "e": "counted from tracked files"
+        },
+        {
+          "t": "SVG",
+          "d": "3 files · 1%",
+          "e": "counted from tracked files"
+        },
+        {
+          "t": "TypeScript (strict: on)",
+          "d": "type safety config",
+          "e": "tsconfig*.json"
+        },
+        {
+          "t": "pnpm (pnpm@9.15.0)",
+          "d": "package manager",
+          "e": "lockfile + packageManager field"
+        }
+      ]
+    },
+    {
+      "label": "Framework",
+      "children": [
+        {
+          "t": "Next.js 15.3.3",
+          "d": "App Router + React Server Components",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "React 19.1.0",
+          "d": "v19.1.0",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "App Router",
+          "d": "file-based routing, layouts, RSC",
+          "e": "app/layout.tsx"
+        },
+        {
+          "t": "React Server Components",
+          "d": "shadcn configured for RSC",
+          "e": "components.json → rsc"
+        }
+      ]
+    },
+    {
+      "label": "UI System",
+      "children": [
+        {
+          "t": "shadcn (new-york style)",
+          "d": "base: neutral · icons: lucide",
+          "e": "components.json"
+        },
+        {
+          "t": "Tailwind CSS v4.1.8",
+          "d": "v4, CSS-first config (@import \"tailwindcss\")",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "Tailwind CSS",
+          "d": "v4.1.8",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "Tailwind CSS v4 tooling",
+          "d": "v4.1.8",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "Lucide icons",
+          "d": "v0.577.0",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "next-themes (dark mode)",
+          "d": "v0.4.6",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "class-variance-authority",
+          "d": "v0.7.1",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "clsx",
+          "d": "v2.1.1",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "tailwind-merge",
+          "d": "v3.3.0",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "Radix Slot",
+          "d": "v1.2.3",
+          "e": "apps/docs/package.json"
+        },
+        {
+          "t": "Radix Primitives × 3",
+          "d": "react-avatar, react-separator, react-slot",
+          "e": "package.json deps"
+        },
+        {
+          "t": "Vercel Analytics",
+          "d": "pageview tracking",
+          "e": "apps/docs/package.json"
+        }
+      ]
+    },
+    {
+      "label": "Charts & Visualization",
+      "children": [
+        {
+          "t": "Recharts",
+          "d": "v3.10.1",
+          "e": "apps/docs/package.json"
+        }
+      ]
+    },
+    {
+      "label": "Backend · Data · Auth",
+      "children": [
+        {
+          "t": "No backend, database or auth detected",
+          "d": "static/SSR frontend — data ships as files or client-side state",
+          "e": "no db/auth deps, no schema files"
+        }
+      ]
+    },
+    {
+      "label": "Distribution",
+      "children": [
+        {
+          "t": "shadcn registry (`npx shadcn add …`)",
+          "d": "consumers copy source into their own @/components/ui — vendor, don't depend",
+          "e": "registry/ (+ components.json)"
+        },
+        {
+          "t": "Not published to npm",
+          "d": "private monorepo — consumed via git / deploy, not install",
+          "e": "package.json → private"
+        }
+      ]
+    },
+    {
+      "label": "Workspace Structure",
+      "children": [
+        {
+          "t": "pnpm workspaces",
+          "d": "workspace layout",
+          "e": "pnpm-workspace.yaml / turbo.json"
+        },
+        {
+          "t": "@frostui/docs",
+          "d": "app",
+          "e": "apps/docs"
+        },
+        {
+          "t": "livedocs",
+          "d": "package — CLI that prints shadcn install commands for the livedocs registry",
+          "e": "packages/cli"
+        },
+        {
+          "t": "@frostui/config",
+          "d": "package — Shared tooling config",
+          "e": "packages/config"
+        },
+        {
+          "t": "@frostui/registry",
+          "d": "package — Component registry metadata",
+          "e": "packages/registry"
+        },
+        {
+          "t": "@frostui/tokens",
+          "d": "package — Design tokens",
+          "e": "packages/tokens"
+        },
+        {
+          "t": "@frostui/ui",
+          "d": "package — React UI primitives",
+          "e": "packages/ui"
+        }
+      ]
+    },
+    {
+      "label": "Quality & Automation",
+      "children": [
+        {
+          "t": "No test runner configured",
+          "d": "quality rests on types + lint + CI",
+          "e": "no test deps or *.test.* files"
+        },
+        {
+          "t": "CI: ci.yml",
+          "d": "runs on push/PR",
+          "e": ".github/workflows/ci.yml"
+        }
+      ]
+    },
+    {
+      "label": "Deployment",
+      "children": [
+        {
+          "t": "livedocs.xyz",
+          "d": "live site",
+          "e": "package.json → homepage"
+        },
+        {
+          "t": "Vercel",
+          "d": "hosting signal"
+        }
+      ]
+    },
+    {
+      "label": "File Structure (257 files)",
+      "children": [
+        {
+          "t": "apps",
+          "d": "131 files",
+          "e": "tracked file tree"
+        },
+        {
+          "t": "packages",
+          "d": "57 files",
+          "e": "tracked file tree"
+        },
+        {
+          "t": "registry",
+          "d": "42 files",
+          "e": "tracked file tree"
+        },
+        {
+          "t": "(root)",
+          "d": "17 files",
+          "e": "tracked file tree"
+        },
+        {
+          "t": ".github",
+          "d": "8 files",
+          "e": "tracked file tree"
+        },
+        {
+          "t": ".frosted-ui",
+          "d": "1 files",
+          "e": "tracked file tree"
+        },
+        {
+          "t": ".vscode",
+          "d": "1 files",
+          "e": "tracked file tree"
+        }
+      ]
+    },
+    {
+      "label": "Scripts",
+      "children": [
+        {
+          "t": "pnpm dev",
+          "d": "pnpm --filter @frostui/registry build:registry && pnpm --filter @frostui/docs dev",
+          "e": "package.json → scripts"
+        },
+        {
+          "t": "pnpm build",
+          "d": "pnpm --filter @frostui/registry build:registry && pnpm -r build",
+          "e": "package.json → scripts"
+        },
+        {
+          "t": "pnpm build:docs",
+          "d": "pnpm --filter @frostui/registry build:registry && pnpm --filter @frostui/docs build",
+          "e": "package.json → scripts"
+        },
+        {
+          "t": "pnpm registry:build",
+          "d": "pnpm --filter @frostui/registry build:registry",
+          "e": "package.json → scripts"
+        },
+        {
+          "t": "pnpm lint",
+          "d": "pnpm -r lint",
+          "e": "package.json → scripts"
+        },
+        {
+          "t": "pnpm typecheck",
+          "d": "pnpm -r typecheck",
+          "e": "package.json → scripts"
+        },
+        {
+          "t": "pnpm clean",
+          "d": "pnpm -r clean",
+          "e": "package.json → scripts"
+        }
+      ]
+    }
+  ],
+  "interview": [
+    {
+      "q": "What does this project actually do?",
+      "a": "“livedocs.” shadcn component registry for livedocs.xyz It is a shadcn component registry."
+    },
+    {
+      "q": "What language is it written in?",
+      "a": "Mostly TypeScript (50% of tracked files), with JSON 39%, Markdown 3%, YAML 3%. ~125 source files."
+    },
+    {
+      "q": "What framework, and why does that choice matter?",
+      "a": "Built on Next.js 15.3.3 + React 19.1.0. Next.js gives file-based routing, server components and a static-export-friendly docs site in one deployable unit."
+    },
+    {
+      "q": "How is the code organized?",
+      "a": "A pnpm workspaces monorepo with 6 workspace(s): @frostui/docs, livedocs, @frostui/config, @frostui/registry, @frostui/tokens, @frostui/ui. Apps live under apps/, shared code under packages/ — classic separation of deployables vs. reusables."
+    },
+    {
+      "q": "How do I run it locally?",
+      "a": "Requires Node >=20 and pnpm. Install, then `pnpm dev` — full commands are in the Scripts section below."
+    },
+    {
+      "q": "Where does data come from? Is there a backend?",
+      "a": "There is no backend, database or auth in this repo. It's a frontend/distribution project — data ships as static files or lives in client state."
+    },
+    {
+      "q": "How do other developers consume this?",
+      "a": "shadcn registry (`npx shadcn add …`) — consumers copy source into their own @/components/ui — vendor, don't depend Not published to npm — private monorepo — consumed via git / deploy, not install"
+    },
+    {
+      "q": "How is quality enforced?",
+      "a": "TypeScript with strict mode on. CI runs ci.yml on every push."
+    },
+    {
+      "q": "Where does it deploy?",
+      "a": "Hosting signals point to Vercel, live at https://livedocs.xyz."
+    }
+  ]
+}
