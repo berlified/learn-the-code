@@ -332,7 +332,8 @@ export function analyzeRepoDir(dir, { owner, repo, url, branch = "HEAD" } = {}) 
 
   // 3. UI system
   {
-    const kids = pick(UI_DEPS);
+    // Plain "Tailwind CSS" entry is redundant once the versioned one is added below.
+    const kids = pick(UI_DEPS).filter((k) => k.t !== "Tailwind CSS");
     if (inDeps("tailwindcss")) {
       const v4 = tailwindVersion.startsWith("4");
       kids.unshift({ t: `Tailwind CSS v${tailwindVersion}`, d: v4 ? "v4, CSS-first config (@import \"tailwindcss\")" : "utility-first styling", e: deps.get("tailwindcss").from });

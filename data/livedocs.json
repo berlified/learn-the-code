@@ -4,7 +4,7 @@
     "repo": "livedocsxyz",
     "url": "https://github.com/berlified/livedocsxyz",
     "branch": "main",
-    "analyzedAt": "2026-10-12T16:00:34.769Z",
+    "analyzedAt": "2026-10-12T16:07:59.506Z",
     "totalFiles": 257
   },
   "summary": {
@@ -181,11 +181,6 @@
         {
           "t": "Tailwind CSS v4.1.8",
           "d": "v4, CSS-first config (@import \"tailwindcss\")",
-          "e": "apps/docs/package.json"
-        },
-        {
-          "t": "Tailwind CSS",
-          "d": "v4.1.8",
           "e": "apps/docs/package.json"
         },
         {

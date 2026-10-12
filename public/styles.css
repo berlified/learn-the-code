@@ -106,30 +106,38 @@ button.ghost:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.2);
 /* ---------- map toolbar ---------- */
 .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 40px 0 14px; flex-wrap: wrap; }
 .toolbar h3, .sect { font-size: 18px; margin: 0; letter-spacing: -0.015em; font-weight: 700; }
-.tools { display: flex; gap: 8px; align-items: center; }
+.tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .tools input { background: var(--panel); border: 1px solid var(--line); color: var(--text); border-radius: 9px; padding: 8px 13px; font-size: 13px; width: 140px; transition: border-color 0.2s, width 0.25s; }
 .tools input:focus { outline: none; border-color: rgba(125, 211, 252, 0.55); width: 190px; }
 
-/* ---------- hierarchy nodes ---------- */
-.tree { display: grid; gap: 10px; }
-.node { --c: var(--accent); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; backdrop-filter: blur(12px); transition: border-color 0.2s, transform 0.2s; }
-.node:hover { border-color: rgba(255, 255, 255, 0.16); }
-.node > summary { list-style: none; cursor: pointer; padding: 15px 20px; display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 15px; user-select: none; }
-.node > summary::-webkit-details-marker { display: none; }
-.node > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); flex-shrink: 0; }
-.caret { color: var(--faint); font-size: 11px; transition: transform 0.18s; width: 12px; }
-.node[open] .caret { transform: rotate(90deg); }
-.node > summary .count { margin-left: auto; font-size: 11.5px; color: var(--faint); font-weight: 500; font-family: var(--mono); background: var(--panel-2); border: 1px solid var(--line-soft); border-radius: 999px; padding: 2px 10px; }
-.leaves { margin: 0; padding: 2px 14px 12px 41px; list-style: none; }
-.leaves li { padding: 10px 12px 10px 18px; border-left: 1px solid var(--line); position: relative; font-size: 14px; border-radius: 0 8px 8px 0; transition: background 0.15s; }
-.leaves li:hover { background: rgba(255, 255, 255, 0.03); }
-.leaves li::before { content: ""; position: absolute; left: -1px; top: 24px; width: 13px; border-top: 1px solid var(--line); }
-.leaf-t { font-weight: 650; }
-.leaf-d { color: var(--muted); }
-.leaf-e { display: inline-block; font-family: var(--mono); font-size: 11.5px; color: var(--faint); background: var(--panel-2); border: 1px solid var(--line-soft); border-radius: 7px; padding: 2px 8px; margin-left: 8px; white-space: nowrap; }
-a.leaf-e { color: var(--accent); text-decoration: none; }
-a.leaf-e:hover { border-color: rgba(125, 211, 252, 0.5); text-decoration: underline; }
+/* ---------- roadmap board ---------- */
+.board-wrap { margin-top: 6px; }
+.legend { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 18px; margin-bottom: 12px; font-size: 13px; color: var(--muted); }
+.legend .lg { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.legend-note { margin-left: auto; font-size: 12px; color: var(--faint); font-weight: 400; }
+.badge-dot { width: 21px; height: 21px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 11px; font-weight: 800; color: #fff; flex-shrink: 0; border: 2px solid #141414; line-height: 1; }
+.badge-dot.core { background: #7c3aed; }
+.badge-dot.alt { background: #4d7c0f; }
+.badge-dot.info { background: #6b7280; }
+
+.board { position: relative; background: #f4f1ea; border-radius: 18px; padding: 36px 34px; overflow: hidden; border: 1px solid var(--line); }
+.board svg#links { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+#cats { position: relative; z-index: 1; display: grid; gap: 36px; }
+.cat { display: grid; grid-template-columns: 1fr auto 1fr; gap: 46px; align-items: center; }
+.spine-cell { display: flex; justify-content: center; }
+.spine-node { background: #ffdf1b; border: 2.5px solid #141414; border-radius: 10px; padding: 12px 26px; min-width: 215px; max-width: 290px; text-align: center; color: #141414; font-weight: 800; font-size: 15px; box-shadow: 2px 3px 0 rgba(20, 20, 20, 0.18); }
+.spine-node small { display: block; font-weight: 600; font-size: 11px; color: #78716c; margin-top: 3px; }
+.side { display: grid; gap: 10px; align-content: center; }
+.kid { position: relative; background: #fceebd; border: 2px solid #141414; border-radius: 10px; padding: 9px 15px 10px; color: #141414; max-width: 285px; width: 100%; justify-self: start; transition: transform 0.15s, box-shadow 0.15s; }
+.cat .side:first-child .kid { justify-self: end; }
+.kid:hover { transform: translateY(-2px); box-shadow: 2px 4px 0 rgba(20, 20, 20, 0.2); }
+.kid .badge-dot { position: absolute; top: -12px; right: -12px; cursor: default; }
+.k-t { font-weight: 700; font-size: 13.5px; line-height: 1.4; }
+.k-d { font-size: 12px; color: #78716c; margin-top: 1px; }
+.k-e { display: inline-block; font-family: var(--mono); font-size: 11px; color: #1d4ed8; background: rgba(37, 99, 235, 0.09); border-radius: 6px; padding: 1px 7px; margin-top: 5px; text-decoration: none; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom; }
+a.k-e:hover { text-decoration: underline; }
+.k-e.dim { color: #a8a29e; background: rgba(0, 0, 0, 0.05); }
+.board.collapsed .side { display: none; }
 
 /* ---------- Q&A ---------- */
 .sect { margin: 44px 0 3px; }
@@ -153,12 +161,19 @@ a.leaf-e:hover { border-color: rgba(125, 211, 252, 0.5); text-decoration: underl
 .foot { padding: 52px 22px 70px; color: var(--faint); font-size: 12.5px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .foot a { color: var(--muted); }
 
+@media (max-width: 760px) {
+  .cat { grid-template-columns: 1fr; gap: 12px; }
+  .spine-node { min-width: 0; width: 100%; max-width: 100%; }
+  .kid { max-width: 100%; }
+  .cat .side:first-child .kid { justify-self: start; }
+  .board { padding: 24px 16px; }
+  .legend-note { display: none; }
+}
 @media (max-width: 640px) {
   .hero { padding: 44px 0 6px; }
   .form { flex-direction: column; background: transparent; border: 0; padding: 0; gap: 10px; }
   .form input { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
   .card { padding: 22px; }
-  .leaf-e { display: block; margin: 6px 0 0; width: fit-content; }
   .top-inner { padding: 12px 22px; }
   .tagline { display: none; }
 }

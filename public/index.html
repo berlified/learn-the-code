@@ -65,7 +65,18 @@
           <button id="collapse" type="button" class="ghost">Collapse</button>
         </div>
       </div>
-      <div id="tree" class="tree"></div>
+      <div class="board-wrap">
+        <div class="legend">
+          <span class="lg"><span class="badge-dot core">✓</span>Key finding</span>
+          <span class="lg"><span class="badge-dot alt">✓</span>Supporting detail</span>
+          <span class="lg"><span class="badge-dot info">!</span>Heads-up</span>
+          <span class="legend-note">Evidence chips open the source file</span>
+        </div>
+        <div id="board" class="board">
+          <svg id="links" aria-hidden="true"></svg>
+          <div id="cats"></div>
+        </div>
+      </div>
 
       <h3 class="sect">Grill the builder</h3>
       <p class="sect-sub">Everything a technical person would ask about whoever made this.</p>

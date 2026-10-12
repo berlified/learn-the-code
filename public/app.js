@@ -1,16 +1,27 @@
-// app.js — fetches a report and renders the hierarchy map. No dependencies.
+// app.js — fetches a report and renders the roadmap board. No dependencies.
 const $ = (id) => document.getElementById(id);
 const form = $("form"), input = $("input"), results = $("results"),
       loading = $("loading"), step = $("step"), error = $("error"),
-      tree = $("tree"), interview = $("interview"), scripts = $("scripts"),
-      filter = $("filter");
+      board = $("board"), svg = $("links"), cats = $("cats"),
+      interview = $("interview"), scripts = $("scripts"), filter = $("filter");
 
 const STEPS = ["Cloning repo…", "Counting files…", "Reading manifests…", "Detecting frameworks…", "Building map…"];
 let stepTimer = null;
 let current = null;
 
-const PALETTE = ["#7dd3fc", "#a5b4fc", "#c4b5fd", "#f0abfc", "#fda4af", "#fdba74",
-                 "#fcd34d", "#86efac", "#6ee7b7", "#67e8f9", "#93c5fd"];
+const KIND_META = {
+  core: { label: "Key finding", mark: "✓" },
+  alt: { label: "Supporting detail", mark: "✓" },
+  info: { label: "Heads-up", mark: "!" },
+};
+
+// First headline item per major category is the key finding;
+// "No X / Not published" notes are heads-ups; everything else supports.
+function kindOf(catLabel, k, i) {
+  if (/^(no |not published|—)/i.test(k.t)) return "info";
+  if (i === 0 && /^(Runtime|Framework|UI System|Charts|Distribution|Workspace|Deployment)/.test(catLabel)) return "core";
+  return "alt";
+}
 
 const LANG_COLORS = {
   TypeScript: "#3178c6", JavaScript: "#f1e05a", Python: "#3572A5", Go: "#00ADD8",
@@ -32,9 +43,9 @@ function evidence(e, meta) {
   const looksFile = /^[\w.\-@/]+(\/[\w.\-@/]+)*$/.test(e) && /[./]/.test(e);
   if (looksFile && meta?.url) {
     const href = `${meta.url}/blob/${meta.branch || "HEAD"}/${e}`;
-    return `<a class="leaf-e" href="${esc(href)}" target="_blank" rel="noopener">${esc(e)}</a>`;
+    return `<a class="k-e" href="${esc(href)}" target="_blank" rel="noopener">${esc(e)}</a>`;
   }
-  return `<span class="leaf-e">${esc(e)}</span>`;
+  return `<span class="k-e dim">${esc(e)}</span>`;
 }
 
 function setLoading(on) {
@@ -51,6 +62,71 @@ function showError(msg) {
   error.hidden = !msg;
 }
 
+// --- roadmap connectors ------------------------------------------------------
+let drawQueued = false;
+function queueDraw() {
+  if (drawQueued) return;
+  drawQueued = true;
+  requestAnimationFrame(() => { drawQueued = false; drawLinks(); });
+}
+
+function drawLinks() {
+  const NS = "http://www.w3.org/2000/svg";
+  svg.innerHTML = "";
+  if (board.offsetWidth < 760) {
+    svg.setAttribute("width", 0);
+    svg.setAttribute("height", 0);
+    return;
+  }
+  const W = board.offsetWidth, H = board.offsetHeight;
+  svg.setAttribute("width", W);
+  svg.setAttribute("height", H);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+
+  const line = (d, solid) => {
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", d);
+    p.setAttribute("fill", "none");
+    p.setAttribute("stroke", "#2563eb");
+    p.setAttribute("stroke-width", solid ? 3.5 : 2.5);
+    if (!solid) {
+      p.setAttribute("stroke-dasharray", "0.5 8");
+      p.setAttribute("stroke-linecap", "round");
+    }
+    svg.appendChild(p);
+  };
+
+  const nodes = [...cats.querySelectorAll(".spine-node")].filter(
+    (n) => n.closest(".cat").style.display !== "none");
+  const centers = nodes.map((n) => ({
+    x: n.offsetLeft + n.offsetWidth / 2,
+    y: n.offsetTop + n.offsetHeight / 2,
+  }));
+  if (centers.length > 1) {
+    line("M " + centers.map((p) => `${p.x} ${p.y}`).join(" L "), true);
+  }
+
+  cats.querySelectorAll(".cat").forEach((cat) => {
+    if (cat.style.display === "none") return;
+    const node = cat.querySelector(".spine-node");
+    const nx = node.offsetLeft + node.offsetWidth / 2;
+    const ny = node.offsetTop + node.offsetHeight / 2;
+    cat.querySelectorAll(".kid").forEach((kid) => {
+      if (kid.style.display === "none") return;
+      const left = kid.offsetLeft, right = left + kid.offsetWidth;
+      const ky = kid.offsetTop + kid.offsetHeight / 2;
+      const onRight = left + kid.offsetWidth / 2 > nx;
+      const x2 = onRight ? left - 5 : right + 5;
+      const mx = (nx + x2) / 2;
+      line(`M ${nx} ${ny} C ${mx} ${ny}, ${mx} ${ky}, ${x2} ${ky}`, false);
+    });
+  });
+}
+
+new ResizeObserver(queueDraw).observe(board);
+if (document.fonts?.ready) document.fonts.ready.then(queueDraw);
+
+// --- render -------------------------------------------------------------------
 function render(report) {
   current = report;
   document.title = `${report.summary.name} — learn-the-code`;
@@ -74,16 +150,22 @@ function render(report) {
     $("r-langs").hidden = true;
   }
 
-  tree.innerHTML = report.tree.map((cat, i) => `
-    <details class="node" open style="--c:${PALETTE[i % PALETTE.length]}">
-      <summary><span class="dot"></span><span class="caret">▶</span>${esc(cat.label)}<span class="count">${cat.children.length}</span></summary>
-      <ul class="leaves">
-        ${cat.children.map((k) => `
-          <li data-text="${esc((k.t + " " + k.d + " " + k.e).toLowerCase())}">
-            <span class="leaf-t">${esc(k.t)}</span>${k.d ? `<span class="leaf-d"> — ${esc(k.d)}</span>` : ""}${evidence(k.e, report.meta)}
-          </li>`).join("")}
-      </ul>
-    </details>`).join("");
+  cats.innerHTML = report.tree.map((cat, i) => {
+    const kids = cat.children.map((k, j) => {
+      const kind = kindOf(cat.label, k, j);
+      return `<div class="kid" data-text="${esc((k.t + " " + k.d + " " + k.e).toLowerCase())}">
+        <span class="badge-dot ${kind}" title="${KIND_META[kind].label}">${KIND_META[kind].mark}</span>
+        <div class="k-t">${esc(k.t)}</div>
+        ${k.d ? `<div class="k-d">${esc(k.d)}</div>` : ""}
+        ${evidence(k.e, report.meta)}
+      </div>`;
+    }).join("");
+    // Alternate: even categories branch right, odd branch left.
+    const cells = i % 2 === 0
+      ? `<div class="side"></div><div class="spine-cell"><div class="spine-node">${esc(cat.label)}<small>${cat.children.length} finding${cat.children.length === 1 ? "" : "s"}</small></div></div><div class="side">${kids}</div>`
+      : `<div class="side">${kids}</div><div class="spine-cell"><div class="spine-node">${esc(cat.label)}<small>${cat.children.length} finding${cat.children.length === 1 ? "" : "s"}</small></div></div><div class="side"></div>`;
+    return `<section class="cat">${cells}</section>`;
+  }).join("");
 
   interview.innerHTML = report.interview.map((qa, i) => `
     <details${i < 2 ? " open" : ""}>
@@ -97,13 +179,10 @@ function render(report) {
     : `<div class="cmd"><code>—</code><span>No runnable scripts detected. Check the README.</span></div>`;
 
   filter.value = "";
+  board.classList.remove("collapsed");
   results.hidden = false;
-  // Retrigger entrance animation on repeat renders.
-  results.style.animation = "none";
-  requestAnimationFrame(() => {
-    results.style.animation = "";
-    results.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  queueDraw();
+  results.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function toMarkdown(r) {
@@ -165,10 +244,14 @@ document.querySelectorAll(".chip").forEach((chip) => {
   });
 });
 
-$("expand").addEventListener("click", () =>
-  tree.querySelectorAll("details").forEach((d) => (d.open = true)));
-$("collapse").addEventListener("click", () =>
-  tree.querySelectorAll("details").forEach((d) => (d.open = false)));
+$("expand").addEventListener("click", () => {
+  board.classList.remove("collapsed");
+  queueDraw();
+});
+$("collapse").addEventListener("click", () => {
+  board.classList.add("collapsed");
+  queueDraw();
+});
 
 $("copy").addEventListener("click", async (e) => {
   if (!current) return;
@@ -183,16 +266,16 @@ $("copy").addEventListener("click", async (e) => {
 
 filter.addEventListener("input", () => {
   const q = filter.value.trim().toLowerCase();
-  tree.querySelectorAll(".node").forEach((node) => {
+  cats.querySelectorAll(".cat").forEach((cat) => {
     let visible = 0;
-    node.querySelectorAll("li").forEach((li) => {
-      const hit = !q || li.dataset.text.includes(q);
-      li.style.display = hit ? "" : "none";
+    cat.querySelectorAll(".kid").forEach((kid) => {
+      const hit = !q || kid.dataset.text.includes(q);
+      kid.style.display = hit ? "" : "none";
       if (hit) visible++;
     });
-    node.style.display = visible ? "" : "none";
-    if (q && visible) node.open = true;
+    cat.style.display = visible ? "" : "none";
   });
+  queueDraw();
 });
 
 // Deep link (?repo=…) or the livedocs example on first visit.

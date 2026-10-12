@@ -21,9 +21,9 @@ Node 20+. No dependencies, no install, no API keys.
 2. The server shallow-clones it to a temp dir (`git clone --depth 1`).
 3. `analyzer.js` statically inspects it — manifests, lockfiles, configs, file tree.
    No code is ever executed.
-4. You get a report: summary badges, an 11-category hierarchy map
-   (runtime, framework, UI, charts, backend/data/auth, distribution, workspace,
-   quality, deployment, files, scripts) and a 9-question "grill the builder" sheet.
+4. You get a report: summary badges, a roadmap-style board (yellow spine
+   categories with dotted branches to findings, badge-coded by importance)
+   and a 9-question "grill the builder" sheet.
 5. The clone is deleted. `?repo=` URLs are shareable.
 
 ## Structure
